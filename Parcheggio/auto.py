@@ -1,27 +1,39 @@
-from Veicolo import Veicolo
+#Car
+
+from veicolo import Veicolo
 
 class Auto(Veicolo):
-    def __init__(self,targa: str,marca: str = "Volkswagen",modello: str = "Golf",colore:str = "blu",cilindrata:int = 1600,alimentazione:str = "diesel",npassmax: int = 6,npasstr: int = 2,weightmax: int = 500,weightr: int = 300):
+    #Prendo i parametri necessari per crare un oggetto di classe Auto
+    def __init__(
+        self,
+        targa: str,
+        marca: str = "Toyota",
+        modello: str = "Yaris",
+        colore: str = "Giallo",
+        cilindrata:int = 100,
+        alimentazione: str = "Diesel",
+        passeggeriMassimi: int = 4,
+        passeggeriABordo: int = 3,
+        pesoMassimo: int = 20,
+        pesoTrasportato: int = 10):
+
+        #Uso la __ini__() del veicolo per i controlli su alcuni parametri
         super().__init__(targa, marca, modello, colore, cilindrata, alimentazione)
-        if npassmax <= 0:
-            raise ValueError("impossibile")
+
+        #Aggiungo i controlli sui parametri non inclusi nel veicolo
+        self.__passeggeriMassimi = passeggeriMassimi
+         
+        if passeggeriABordo > self.__passegeriMassimi:
+            raise ValueError("I passeggeri a bordo non possono essere più di quelli massimi ammessi")
         else:
-            self.npassmax = npassmax
-        if npasstr < 0 or npasstr > npass:
-            raise ValueError("Qualcuno deve essersi buttato fuori...")
-        else:
-            self.npasstr = npasstr
-        if npweightmaxass <= 0:
-            raise ValueError("impossibile")
-        else:
-            self.weightmax = weightmax
-        if weightr < 0 or weightr > weightmax:
-            raise ValueError("impossibile")
-        else:    
-            self.weightr = weightr
-            
+            self.__passeggeriABordo = passeggeriABordo
+
+    #Funzioni standard
     def __str__(self):
         return __class__.__name__ + str(self.__dict__)
-    
     def __repr__(self):
         return __class__.__name__ + str(self.__dict__)
+
+#Test
+a = Auto("AB123CD")
+print(a)
