@@ -1,61 +1,80 @@
 #Parking posto
 
-from moto import *
-from auto import *
-import datetime
+#Meneghetti Sebastiano
+#4BS
+#postomezzo
 
-veicoliAmmessi = [Auto, Moto]
+from datetime import datetime
+from datetime import timedelta
+tipologieMezzi = ["moto","auto"]
 
 class PostoMezzo:
     def __init__(self):
-        self.__veicolo = None
-        self.__targaVeicolo = ""
-        self.__libero = True
-        self.__giornoOraDiUscita = None
-    
+        self.__parcheggioAuto = 1
+        self.__parcheggioMoto = 1
+        self.__postiOccupati = {}
+
     def __str__(self):
-        return __class__.__name__ + str(self.__dict__)
+        return str(self.__dict__)
     def __repr__(self):
-        return __class__.__name__ + str(self.__dict__)
-
-    @property
-    def veicolo(self):
-        return self.__veicolo
-
-    @property
-    def targaVeicolo(self):
-        return self.__targaVeicolo
-
-    @property
-    def libero(self):
-        return self.__libero
-
-    @property
-    def giornoOraDiUscita(self):
-        return self.__giornoOraDiUscita
+        return str(self.__dict__)
     
-    def parcheggia(self, veicolo, oreDiSoggiorno: int):
-        if type(veicolo) not in veicoliAmmessi:
-            raise ValueError("Invalid veicolo type")
+    @property
+    def parcheggioMoto(self):
+        return self.__parcheggioMoto
 
-        self.__targaVeicolo = veicolo.targa
-        self.__giornoOraDiUscita = datetime.datetime.now() + datetime.timedelta(hours = oreDiSoggiorno)
-        self.__libero = False
-        return
+    @property
+    def parcheggioAuto(self):
+        return self.__parcheggioAuto
 
-    def liberaPosto(self):
-        self.__targaVeicolo = ""
-        self.__veicolo = None
-        self.__libero = True
-        self.__giornoOraDiUscita = None
-        return
+    def occupaPosto(self, tipologiaMezzo, targa, arrivo , oreSosta):
+        if tipologiaMezzo.lower() not in tipologieMezzi:
+            raise ValueError("Questo mezzo non è valido")
+        if targa in self.__postiOccupati:
+            raise ValueError("Veicolo già presente")
+        orarioArrivo = arrivo
+        orarioUscita = arrivo + timedelta(hours=oreSosta)
+        if tipologiaMezzo.lower() == "moto":
+            if self.__parcheggioMoto > 0:
+                self.__parcheggioMoto -= 1
+                self.__postiOccupati[targa] = (tipologiaMezzo, orarioArrivo, orarioUscita)
+            else:
+                raise ValueError("non ci sono più posti per moto")
+        
+        elif tipologiaMezzo.lower() == "auto":
+            if self.__parcheggioAuto > 0:
+                self.__parcheggioAuto -= 1
+                self.__postiOccupati[targa] = (tipologiaMezzo, orarioArrivo, orarioUscita)
+            else:
+                raise ValueError("non ci sono più posti per auto")
 
+    def liberaPosto(self, targa):
+        if targa not in self.__postiOccupati:
+            raise ValueError("il veicolo non è nel parcheggio")
+        tipologiaMezzo = self.__postiOccupati.pop(targa)[0]
+        if tipologiaMezzo.lower() == "moto":
+            self.__parcheggioMoto += 1
+        elif tipologiaMezzo.lower() == "auto":
+            self.__parcheggioAuto += 1
 
-print("--<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>----<<|>>--")
-posto = PostoMezzo()
-print(posto)
-print(posto.giornoOraDiUscita)
-auto = Auto("AB123CD")
-posto.parcheggia(Auto, 3)
-print(posto.giornoOraDiUscita)
-  
+#--------------------------------------------------------------------------------------------------------
+if __name__ == "__main__":
+    oggetto = PostoMezzo()
+    print(oggetto)
+    print()
+    print("------AUTO------")
+    print("OCCUPO POSTO AUTO")
+    oggetto.occupaPosto("Auto", "TG473HH", datetime.now(),13)
+    print(oggetto)
+    print("LIBERO POSTO AUTO")
+    oggetto.liberaPosto("TG473HH")
+    print(oggetto)
+    print()
+    print("------MOTO------")
+    print("OCCUPO POSTO MOTO")
+    oggetto.occupaPosto("Moto", "FL385TR", datetime.now(),43)
+    print(oggetto)
+    print("LIBEO POSTO MOTO")
+    oggetto.liberaPosto("FL385TR")
+    print(oggetto)
+    
