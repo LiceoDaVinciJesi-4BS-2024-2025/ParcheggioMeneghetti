@@ -11,7 +11,7 @@ class PostoMezzo:
         self.__veicolo = None
         self.__targaVeicolo = ""
         self.__libero = True
-        self.__giornoOraDiUscita = datetime.datetime(1, 1, 1, 1, 1)
+        self.__giornoOraDiUscita = None
     
     def __str__(self):
         return __class__.__name__ + str(self.__dict__)
@@ -47,7 +47,7 @@ class PostoMezzo:
         self.__targaVeicolo = ""
         self.__veicolo = None
         self.__libero = True
-        self.__giornoOraDiUscita = datetime.datetime(1, 1, 1, 1, 1)
+        self.__giornoOraDiUscita = None
         return
 
 
@@ -56,6 +56,6 @@ posto = PostoMezzo()
 print(posto)
 print(posto.giornoOraDiUscita)
 auto = Auto("AB123CD")
-posto.parcheggia(Auto, 3, 30)
+posto.parcheggia(Auto, 3)
 print(posto.giornoOraDiUscita)
   

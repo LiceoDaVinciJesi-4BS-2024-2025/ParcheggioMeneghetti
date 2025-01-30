@@ -14,7 +14,7 @@ class Veicolo:
         self,
         targa: str,
         marca: str = "Toyota",
-        modellolo: str = "Yaris",
+        modello: str = "Yaris",
         colore: str = "Giallo",
         cilindrata:int = 100,
         alimentazione: str = "Diesel"):
