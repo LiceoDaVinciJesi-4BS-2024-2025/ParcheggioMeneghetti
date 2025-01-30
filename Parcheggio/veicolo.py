@@ -1,11 +1,9 @@
 #Veicolo
 
-import random
-
 listaColori = ["Blu", "Giallo", "Nero", "Bianco"]
 listaMarche = ["Audi", "Nissan", "Panda", "Toyota", "BMW", "KTM"]
-BenzinaList = ["Diesel", "Elettrico", "Benzina"]
-letterList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+alimentazione = ["Diesel", "Elettrico", "Benzina"]
+alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 numList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 class Veicolo:
@@ -76,7 +74,7 @@ class Veicolo:
     def __lt__(self, other):
         if self.__marca.upper() == other.__marca.upper():
             if self.__modello.upper() == other.__modello.upper():
-                return self.__cilindrata.upper() < other.__cilindrata.upper()
+                return self.__cilindrata < other.__cilindrata
             else:
                 return self.__modello.upper() < other.__modello.upper()
         else:
