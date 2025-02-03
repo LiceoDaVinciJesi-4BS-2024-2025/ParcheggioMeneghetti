@@ -6,6 +6,8 @@ alimentazione = ["Diesel", "Elettrico", "Benzina"]
 alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 numList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
+# PROF: la classe Veicolo non funziona. E con essa NIENTE del progetto.
+# PROF: Ci sono molti riferimenti a 'variabili' non definite ----> codice COPIATO MALE da un altro
 class Veicolo:
     #Init
     def __init__(
@@ -85,7 +87,7 @@ class Veicolo:
     def __repr__(self):
         return __class__.__name__ + str(self.__dict__)
 
-
+# PROF: Tutto questo... semplicemente NON è il tuo codice
 v = Veicolo("AB123CD")
 print(v)
 v1 = Veicolo("AB124CD", "Audi")
